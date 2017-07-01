@@ -7,7 +7,6 @@ def location_reader(location_fragment):
 
 
 def place_ok(place_string):
-    print place_string
     special_characters = ['=', '!']
     if any(character in place_string for character in special_characters):
         return False

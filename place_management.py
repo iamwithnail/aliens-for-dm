@@ -13,9 +13,13 @@ def destroy_related_roads(place, world_map):
     return world_map
 
 
-def destroy_place(place):
+def world_exists(world_map):
     """
-    Destroying a place removes the place from the map.
-    :param place: 
+    Check that there still more than 0 available entries in the world map. 
+    :param world_map: 
     :return: 
     """
+    if len(world_map)>0:
+        return True
+    else:
+        return False
