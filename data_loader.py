@@ -1,12 +1,9 @@
-def location_reader(location_fragment):
-    """
-    Takes in a location fragment in the format direction1=place1 direction2=place2
-    :param location_fragment: 
-    :return: 
-    """
-
-
 def place_ok(place_string):
+    """
+    
+    :param place_string: 
+    :return: Boolean indicating whether or not this is ok  
+    """
     special_characters = ['=', '!']
     if any(character in place_string for character in special_characters):
         return False
@@ -26,8 +23,7 @@ def row_handler(data_row):
     if not place_ok(place):
         raise AttributeError('Place name should not contain any special characters')
     remainder = split_row[1:]
-    return {place: dict(item.split('=') for item in remainder)
-}
+    return {place: dict(item.split('=') for item in remainder)}
 
 def file_handler(file_location):
     """

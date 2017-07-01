@@ -13,11 +13,10 @@ def run_all(mapfile, number_of_aliens):
         sys.exit()
 
     number_of_moves = 0
-    import pdb; pdb.set_trace()
     active_aliens = create_aliens(number_of_aliens, main_map)
     active_aliens, main_map = check_for_initial_conflicts(active_aliens, main_map)
 
-    while number_of_moves <=10001 and world_exists(main_map):
+    while number_of_moves <=10000 and world_exists(main_map):
         #filter out dead and stuck aliens
         current_aliens = filter(lambda x: x.can_move == True and x.alive, active_aliens)
         for index, alien in enumerate(current_aliens):

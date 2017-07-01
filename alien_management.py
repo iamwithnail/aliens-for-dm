@@ -5,15 +5,24 @@ class Alien():
         self.alive = True
         self.location = random.choice(main_map.keys())
         self.id = id
+
+
     def __eq__(self, other):
         return self.location == other.location
+
+
     def __repr__(self):
         return 'Alien %s' % (self.id)
+
+
     def __hash__(self):
         return hash(self.location)
+
+
     def kill(self):
         self.alive = False
         self.can_move = False
+
 
 def create_aliens(number_of_aliens, world_map):
     """
@@ -23,7 +32,6 @@ def create_aliens(number_of_aliens, world_map):
     """
     # create an alien, assign it to a place.
     # Assume two+ aliens can be started in the same place.
-
     return [Alien(world_map, id) for id in xrange(0,number_of_aliens)]
 
 
@@ -44,19 +52,18 @@ def conflict_handler(kill_list,world_map, location):
         alien.kill()
     return world_map, kill_list
 
+
 def are_conflicts(alien, list_of_aliens):
     aliens_in_same_location = filter(lambda x: x.location == alien.location, list_of_aliens)
-
-    print aliens_in_same_location
     if len(aliens_in_same_location) > 1:
         return aliens_in_same_location
     else:
         return []
 
+
 def check_for_initial_conflicts(list_of_aliens, world_map):
     """
-    If any aliens start in the same place, well, that place has had it.  
-    
+    If any aliens start in the same place, well, that place has had it.   
     :param list_of_aliens: 
     :return: modified list of aliens
     """
