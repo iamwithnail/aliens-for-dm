@@ -44,8 +44,13 @@ def map_reader(file_location):
     """Reads in a map file; assumes that the map is a series of rows separated """
     data = file_handler(file_location)
     map_dict = {}
+    error_list = []
     for line in data:
         #Assume that duplicate placenames should be overwritten, but these could be flagged or raised.
-        map_dict.update(row_handler(line))
+        try:
+            map_dict.update(row_handler(line))
+        except AttributeError:
+            #Assume erroneously named places should be left off the map and flagged to mission control
+            error_list.append(line)
     return map_dict
 
