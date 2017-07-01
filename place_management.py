@@ -5,11 +5,18 @@ def destroy_related_roads(place, world_map):
     :return: 
     """
     #list of city names
-    related_cities = [value for key, value in world_map[place].iteritems()]
-    print related_cities
+    try:
+        related_cities = [value for key, value in world_map[place].iteritems()]
+    except KeyError:
+        print "City already destroyed..."
+        return world_map
+    #print related_cities
     #ditch the link to the destroyed city
-    for city in related_cities:
-        world_map[city] = {key:value for key, value in world_map[city].items() if value != place}
+    try:
+        for city in related_cities:
+            world_map[city] = {key:value for key, value in world_map[city].items() if value != place}
+    except KeyError, e:
+         print KeyError, e
     return world_map
 
 

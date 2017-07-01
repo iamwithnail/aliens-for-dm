@@ -1,4 +1,6 @@
 import random
+
+
 class Alien():
     def __init__(self, main_map, id):
         self.can_move = True
@@ -47,7 +49,11 @@ def conflict_handler(kill_list,world_map, location):
     from place_management import destroy_related_roads
     destroy_related_roads(location,world_map)
     print "%s has been destroyed by %s!" %(location, " and ".join([str(value) for value in kill_list]))
-    world_map.pop(location)
+    try:
+        world_map.pop(location)
+    except KeyError:
+        # We shouldn't really get these, but there are still overlapping destroy instructions
+        print "City %s already destroyed by %s"  % (location, " and ".join([str(value) for value in kill_list]))
     for alien in kill_list:
         alien.kill()
     return world_map, kill_list
@@ -83,18 +89,19 @@ def move_alien(alien, world_map):
     :param world_map:  Current version of world map
     :return: tuple of alien object and Boolean of whether or not we were able to move it. 
     """
-    print alien.location
-    #print world_map
     import random
     if alien.can_move:
         directions = world_map[alien.location]
         try:
             alien.location = directions[random.choice(directions.keys())]
             return alien, True
-        except IndexError:
+        except IndexError, TypeError:
             #Caused by no available directions to move.
             alien.can_move = False
             return alien, False
+    else:
+        alien.can_move=False
+        return alien, False
 
 
 
